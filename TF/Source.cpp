@@ -1,63 +1,127 @@
 #include <iostream>
 #include <conio.h>
 #include <Windows.h>
-
+#include <vector>
+#include "MisFunciones.h"
+#include "Estructuras.h"
 
 using namespace std;
 using namespace System;
 
-void mostacho() {
-	Console::Clear();
-	Console::ForegroundColor = ConsoleColor::DarkYellow;
-	int anchoConsola = Console::WindowWidth;
 
-	string linea1 = "         #####        #####        ";
-	string linea2 = " #     ######################     #";
-	string linea3 = "###   ########################   ###";
-	string linea4 = " ################################## ";
-	string linea5 = "  ###############  ############### ";
-	string linea6 = "   ############      ############   ";
+class Usuario {
+private:
+	string nombre;
+	string password;
+	string id;
+public:
+	Usuario() {
+		nombre = "";
+		password = "";
+		id = "";
+	}
+	Usuario(string nombre, string password, string id) {
+		this->nombre = nombre;
+		this->password = password;
+		this->id = id;
+	}
 
-	Console::SetCursorPosition((anchoConsola - linea1.length()) / 2, 6); cout << linea1 << endl;
-	Console::SetCursorPosition((anchoConsola - linea2.length()) / 2, 7); cout << linea2 << endl;
-	Console::SetCursorPosition((anchoConsola - linea3.length()) / 2, 8); cout << linea3 << endl;
-	Console::SetCursorPosition((anchoConsola - linea4.length()) / 2, 9); cout << linea4 << endl;
-	Console::SetCursorPosition((anchoConsola - linea5.length()) / 2, 10); cout << linea5 << endl;
-	Console::SetCursorPosition((anchoConsola - linea6.length()) / 2, 11); cout << linea6 << endl;
+	string getID() {return id; }
+	string getPassword() { return password; }
+	string getNombre() { return nombre; }
 
-	Console::ForegroundColor = ConsoleColor::White;
-	string mensaje = "Presiona cualquier tecla para continuar...";
-	Console::SetCursorPosition((anchoConsola - mensaje.length()) / 2, 15);
-	cout << mensaje << endl;
+	void setID(string id) {
+		this->id = id;
+	}
 
-	_getch();
-}
+	void registrar(LinkedList<Usuario>& listaUsuarios) {
+		
+		string nombre, password, id;
+		cout << "Ingrese su nombre: ";
+		cin >> nombre;
+		cout << "Ingrese su password: ";
+		cin >> password;
+		cout << "Ingrese su id: ";
+		cin >> id;
+
+		auto validarDuplicado = [&listaUsuarios](string id) {
+			return listaUsuarios.buscar(id) != nullptr;
+			};
+
+		if (validarDuplicado(id)) {
+			cout << "\n[!] El ID ya esta registrado.\n";
+		}
+		else {
+			Usuario nuevoUsuario(nombre, password, id);
+			listaUsuarios.insertar(nuevoUsuario);
+			cout << "\n[+] Cliente registrado exitosamente.\n";
+		}
+	}
+
+	bool iniciarSesion(LinkedList<Usuario>& listaUsuarios) {
+		string id, password;
+		cout << "Ingrese su ID: ";
+		cin >> id;
+		cout << "Ingrese su contrasena: ";
+		cin >> password;
+
+		Usuario* user = listaUsuarios.buscar(id);
+		if (user != nullptr && user->getPassword() == password) {
+			cout << "\n[+] Inicio de sesion exitoso. Bienvenido, " << user->getNombre() << "!\n";
+			return true;
+		}
+		else {
+			cout << "\n[!] ID o contrasena incorrecta.\n";
+			return false;
+		}
+	}
+
+	void cambiarPass() {
+
+	}
+};
+
+class Producto {
+
+};
+
+class Pedido {
+private:
+	Usuario* usuario;
+	vector<Producto> productos;
+};
+
 
 int main() {
 	int op;
-
+	LinkedList<Usuario> listaUsuarios;
 	mostacho();
 
 	while (1) {
 		Console::Clear();
-
-		cout << "::::::::::RAPPI::::::::::" << endl;
-		cout << "1. Registrar cliente" << endl;
-		cout << "2. Iniciar sesion" << endl;
-		cout << "3. Realizar pedido" << endl;
-		cout << "4. Mostrar pedidos realizados" << endl;
-		cout << "5. Ordenar pedidos por precios" << endl;
-		cout << "6. Filtrar pedidos por cliente" << endl;
-		cout << "7. Salir" << endl;
-		cout << "Ingrese una opcion: ";
-		cin >> op;
+		op = menuInicioRegistro();
+		Usuario usuario;
 
 		if (op == 1) {
-			system("pause");
+			if (usuario.iniciarSesion(listaUsuarios)) {
+				while (true) {
+					Console::Clear();
+					int opcionMenu = menuPantalla();
+
+					if (opcionMenu == 7) break;
+
+					system("pause");
+				}
+			}
+			else {
+				cout << "\n[!] No se pudo iniciar sesion. Intente nuevamente o registrese.\n";
+				system("pause");
+			}
+		
 		}
 		else if (op == 2) {
+			usuario.registrar(listaUsuarios);
 			system("pause");
 		}
-	
 	}
-}
+};
