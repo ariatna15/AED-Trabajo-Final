@@ -34,6 +34,10 @@ public:
 		this->id = id;
 	}
 
+	void setPassword(string nueva) {
+		this->password = nueva;
+	}
+
 	void registrar(LinkedList<Usuario>& listaUsuarios) {
 		int anchoConsola = Console::WindowWidth;
 		string nombre, password, id;
@@ -96,22 +100,30 @@ public:
 		cout << "CAMBIO DE CONTRASEÑA";
 
 		Console::SetCursorPosition((anchoConsola - 30) / 2, 12);
-		cout << "Ingrese si ID: ";
+		cout << "Ingrese su ID: ";
 		cin >> id;
 
-		Usuario* user = listaUsuarios.buscar(id);
+		auto validarUsuario = [&listaUsuarios](const string& id) -> Usuario* {
+			return listaUsuarios.buscar(id);
+			};
+
+		Usuario* user = validarUsuario(id);
 
 		if (user != nullptr) {
 			Console::SetCursorPosition((anchoConsola - 30) / 2, 13);
 			cout << "Ingrese su contraseña actual: ";
 			cin >> actual;
 
-			if (user->getPassword() == actual) {
+			auto validarContrasena = [&actual](Usuario* u) -> bool {
+				return u->getPassword() == actual;
+				};
+
+			if (validarContrasena(user)) {
 				Console::SetCursorPosition((anchoConsola - 30) / 2, 14);
 				cout << "Ingrese su nueva contraseña: ";
 				cin >> nueva;
 
-				user->password = nueva;
+				user->setPassword(nueva);  
 				Console::SetCursorPosition((anchoConsola - 30) / 2, 16);
 				cout << "[+] Contraseña actualizada correctamente";
 			}
@@ -124,8 +136,8 @@ public:
 			Console::SetCursorPosition((anchoConsola - 30) / 2, 13);
 			cout << "[!] ID no encontrado";
 		}
-
 	}
+
 };
 
 class Producto {
