@@ -137,7 +137,6 @@ public:
 			cout << "[!] ID no encontrado";
 		}
 	}
-
 };
 
 class Producto {
@@ -178,7 +177,8 @@ int main() {
 					Console::Clear();
 
 					int opcionTipoUsuario = menuSeleccionUsuario();
-
+					Console::Clear();
+					int opcionTiendas = menuTiendas();
 					system("pause");
 				}
 			}

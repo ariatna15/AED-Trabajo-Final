@@ -85,7 +85,7 @@ int menuInicioRegistro() {
 	cout << "[2] Registrarse";
 
 	Console::SetCursorPosition(xCambio, y + 6);
-	cout << "[3] Cambio de contraseña";
+	cout << "[3] Cambio de contrasena";
 
 	short op;
 	Console::SetCursorPosition((anchoConsola - 25) / 2, y + 9);
@@ -142,4 +142,32 @@ int menuSeleccionUsuario() {
 	cout << "Ingrese la opcion: "; 
 	cin >> op;
 	return op;
+}
+
+int menuTiendas() {
+	string usarBarra;
+	string tienda;
+	cout << "Escribe el nombre de la tienda en minusculas para ingresar a una tienda\n" << endl;
+	cout << "Tambo" << endl;
+	cout << "Chinawok" << endl;
+	cout << "Subway" << endl;
+	cout << "Starbucks\n" << endl;
+
+	cout << "[M] Metodo de Pago" << endl;
+	cout << "[EP] Ver estado del pedido" << endl;
+	cout << "[C] Carrito" << endl;
+	cout << "[CT] Cuenta\n" << endl;
+
+	cout << "Ingresar tienda: ";
+	cin >> tienda;
+	cout << "Usar barra de opciones? [Si/No]: ";
+	cin >> usarBarra;
+	//implementar el si/no para utilizar la barra de opciones
+	//es aparte de la seleccion de tienda
+
+	//Nota, debe salir primero ingresar tienda y luego usar barra de opciones
+	// deben imprimirse todos los textos de arriba antes de ingresar datos
+	cout << "\nTienda seleccionada: " << tienda << endl;
+	cout << "Usar barra de opciones?: " << usarBarra << endl;
+	return 0;
 }
