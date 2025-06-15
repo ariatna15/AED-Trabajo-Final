@@ -53,9 +53,17 @@ int menuInicioRegistro() {
 		"  |=======|"
 	};
 	
+	string cambio[] = {
+		"  ###### ",
+		" #       ",
+		" #       ",
+		" #       ",
+		"  ###### "
+	};
 
-	int xLogin = (anchoConsola / 2) - 25;
-	int xRegistro = (anchoConsola / 2) + 5;
+	int xLogin = (anchoConsola / 2) - 40;
+	int xRegistro = (anchoConsola / 2) - 10;
+	int xCambio = (anchoConsola / 2) + 11;
 	int y = 6;
 
 	for (int i = 0; i < 5; i++) {
@@ -64,6 +72,9 @@ int menuInicioRegistro() {
 
 		Console::SetCursorPosition(xRegistro, y + i);
 		cout << registro[i];
+
+		Console::SetCursorPosition(xCambio, y + i);
+		cout << cambio[i];
 	}
 
 	Console::ForegroundColor = ConsoleColor::White;
@@ -72,6 +83,9 @@ int menuInicioRegistro() {
 
 	Console::SetCursorPosition(xRegistro, y + 6);
 	cout << "[2] Registrarse";
+
+	Console::SetCursorPosition(xCambio, y + 6);
+	cout << "[3] Cambio de contraseña";
 
 	short op;
 	Console::SetCursorPosition((anchoConsola - 25) / 2, y + 9);
@@ -127,22 +141,5 @@ int menuSeleccionUsuario() {
 	cout << endl;
 	cout << "Ingrese la opcion: "; 
 	cin >> op;
-	return op;
-}
-
-int menuPantalla() {
-	short op;
-
-	cout << "::::::::::RAPPI::::::::::" << endl;
-	cout << "1. Registrar cliente" << endl;
-	cout << "2. Iniciar sesion" << endl;
-	cout << "3. Realizar pedido" << endl;
-	cout << "4. Mostrar pedidos realizados" << endl;
-	cout << "5. Ordenar pedidos por precios" << endl;
-	cout << "6. Filtrar pedidos por cliente" << endl;
-	cout << "7. Salir" << endl;
-	cout << "Ingrese una opcion: ";
-	cin >> op;
-
 	return op;
 }

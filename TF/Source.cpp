@@ -87,9 +87,44 @@ public:
 		}
 	}
 
-	void cambiarPass() {
-		//pendiente 
-		//falta asegurar q el tipo de datos sea correcto para el usuario
+	void cambiarPass(LinkedList<Usuario>& listaUsuarios) {
+		int anchoConsola = Console::WindowWidth;
+		string id, actual, nueva;
+
+		Console::Clear();
+		Console::SetCursorPosition((anchoConsola - 30) / 2, 10);
+		cout << "CAMBIO DE CONTRASEÑA";
+
+		Console::SetCursorPosition((anchoConsola - 30) / 2, 12);
+		cout << "Ingrese si ID: ";
+		cin >> id;
+
+		Usuario* user = listaUsuarios.buscar(id);
+
+		if (user != nullptr) {
+			Console::SetCursorPosition((anchoConsola - 30) / 2, 13);
+			cout << "Ingrese su contraseña actual: ";
+			cin >> actual;
+
+			if (user->getPassword() == actual) {
+				Console::SetCursorPosition((anchoConsola - 30) / 2, 14);
+				cout << "Ingrese su nueva contraseña: ";
+				cin >> nueva;
+
+				user->password = nueva;
+				Console::SetCursorPosition((anchoConsola - 30) / 2, 16);
+				cout << "[+] Contraseña actualizada correctamente";
+			}
+			else {
+				Console::SetCursorPosition((anchoConsola - 30) / 2, 15);
+				cout << "[!] Contraseña actual incorrecta";
+			}
+		}
+		else {
+			Console::SetCursorPosition((anchoConsola - 30) / 2, 13);
+			cout << "[!] ID no encontrado";
+		}
+
 	}
 };
 
@@ -106,8 +141,6 @@ public:
 		this->marca = marca;
 		this->id = id;
 	}
-
-
 };
 
 class Pedido {
@@ -132,10 +165,7 @@ int main() {
 				while (true) {
 					Console::Clear();
 
-
 					int opcionTipoUsuario = menuSeleccionUsuario();
-
-					
 
 					system("pause");
 				}
@@ -148,6 +178,11 @@ int main() {
 		}
 		else if (op == 2) {
 			usuario.registrar(listaUsuarios);
+			system("pause");
+		}
+
+		else if (op == 3) {
+			usuario.cambiarPass(listaUsuarios);
 			system("pause");
 		}
 	}
