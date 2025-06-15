@@ -4,7 +4,8 @@
 using namespace std;
 using namespace System;
 
-void mostacho() {
+void mostacho() { //simbolo de rappi
+
 	Console::Clear();
 	Console::ForegroundColor = ConsoleColor::DarkYellow;
 	int anchoConsola = Console::WindowWidth;
@@ -32,14 +33,103 @@ void mostacho() {
 }
 
 int menuInicioRegistro() {
+	Console::Clear();
+	Console::ForegroundColor = ConsoleColor::Cyan;
+	int anchoConsola = Console::WindowWidth;
+
+	string login[] = {
+		"    ###   ",
+		"   #####  ",
+		"    ###   ",
+		"  ####### ",
+		"  ####### "
+	};
+
+	string registro[] = {
+		"  |=======|",
+		"  |       |",
+		"  |  Reg  |",
+		"  |       |",
+		"  |=======|"
+	};
+	
+
+	int xLogin = (anchoConsola / 2) - 25;
+	int xRegistro = (anchoConsola / 2) + 5;
+	int y = 6;
+
+	for (int i = 0; i < 5; i++) {
+		Console::SetCursorPosition(xLogin, y + i);
+		cout << login[i];
+
+		Console::SetCursorPosition(xRegistro, y + i);
+		cout << registro[i];
+	}
+
+	Console::ForegroundColor = ConsoleColor::White;
+	Console::SetCursorPosition(xLogin, y + 6);
+	cout << "[1] Iniciar Sesion";
+
+	Console::SetCursorPosition(xRegistro, y + 6);
+	cout << "[2] Registrarse";
+
+	short op;
+	Console::SetCursorPosition((anchoConsola - 25) / 2, y + 9);
+	
+	cout << "Ingrese la opcion: ";
+	cin >> op;
+
+	return op;
+}
+
+int menuSeleccionUsuario() {
+	Console::Clear();
+	Console::ForegroundColor = ConsoleColor::Cyan;
+	int anchoConsola = Console::WindowWidth;
+
+	string usuario[] = {
+		"    ###   ",
+		"   #####  ",
+		"    ###   ",
+		"  ####### ",
+		"  ####### "
+	};
+
+	int x = anchoConsola / 2;
+	int y = 9;
+
+	for (int i = 0; i < 5; i++) {
+		Console::ForegroundColor = ConsoleColor::Red;
+		Console::SetCursorPosition(x - 40, y+i);
+		cout << usuario[i];
+
+		Console::ForegroundColor = ConsoleColor::Yellow;
+		Console::SetCursorPosition(x - 10, y+i);
+		cout << usuario[i];
+
+		Console::ForegroundColor = ConsoleColor::DarkMagenta;
+		Console::SetCursorPosition(x + 20, y+i);
+		cout << usuario[i];
+	}
+
+	Console::ForegroundColor = ConsoleColor::White;
+
+	Console::SetCursorPosition(x - 40, y+5);
+	cout << "[1] Cliente" << endl;
+
+	Console::SetCursorPosition(x - 10, y+5);
+	cout << "[2] Repartidor" << endl;
+
+	Console::SetCursorPosition(x + 20, y+5);
+	cout << "[3] Emprendedor/Dueno de tienda" << endl;
 	short op;
 
-	cout << "[1] Iniciar Sesion" << endl;
-	cout << "[2] Registrarse" << endl;
-	cout << "Ingrese la opcion: ";
+	cout << endl;
+	cout << "Ingrese la opcion: "; 
 	cin >> op;
 	return op;
 }
+
 int menuPantalla() {
 	short op;
 

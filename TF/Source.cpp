@@ -25,7 +25,7 @@ public:
 		this->password = password;
 		this->id = id;
 	}
-
+	
 	string getID() {return id; }
 	string getPassword() { return password; }
 	string getNombre() { return nombre; }
@@ -35,12 +35,18 @@ public:
 	}
 
 	void registrar(LinkedList<Usuario>& listaUsuarios) {
-		
+		int anchoConsola = Console::WindowWidth;
 		string nombre, password, id;
+
+		Console::SetCursorPosition((anchoConsola - 25) / 2, 18);
 		cout << "Ingrese su nombre: ";
 		cin >> nombre;
-		cout << "Ingrese su password: ";
+
+		Console::SetCursorPosition((anchoConsola - 25) / 2, 19);
+		cout << "Ingrese su contrasena: ";
 		cin >> password;
+
+		Console::SetCursorPosition((anchoConsola - 25) / 2, 20);
 		cout << "Ingrese su id: ";
 		cin >> id;
 
@@ -59,9 +65,14 @@ public:
 	}
 
 	bool iniciarSesion(LinkedList<Usuario>& listaUsuarios) {
+		int anchoConsola = Console::WindowWidth;
 		string id, password;
+
+		Console::SetCursorPosition((anchoConsola - 25) / 2, 18);
 		cout << "Ingrese su ID: ";
 		cin >> id;
+
+		Console::SetCursorPosition((anchoConsola - 25) / 2, 19);
 		cout << "Ingrese su contrasena: ";
 		cin >> password;
 
@@ -77,11 +88,25 @@ public:
 	}
 
 	void cambiarPass() {
-
+		//pendiente 
+		//falta asegurar q el tipo de datos sea correcto para el usuario
 	}
 };
 
 class Producto {
+private:
+	string id;
+	string nombre;
+	double precio;
+	string marca;
+public:
+	Producto(string nombre, double precio, string marca, string id) {
+		this->nombre = nombre;
+		this->precio = precio;
+		this->marca = marca;
+		this->id = id;
+	}
+
 
 };
 
@@ -106,9 +131,11 @@ int main() {
 			if (usuario.iniciarSesion(listaUsuarios)) {
 				while (true) {
 					Console::Clear();
-					int opcionMenu = menuPantalla();
 
-					if (opcionMenu == 7) break;
+
+					int opcionTipoUsuario = menuSeleccionUsuario();
+
+					
 
 					system("pause");
 				}
@@ -125,3 +152,4 @@ int main() {
 		}
 	}
 };
+
